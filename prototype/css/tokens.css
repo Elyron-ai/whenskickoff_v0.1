@@ -1,0 +1,51 @@
+/* WhensKickoff design tokens — source of truth from the design canvas.
+   This file is the seed for the eventual shared design system (see docs/05). */
+:root {
+  /* Core palette */
+  --ink: #14181f;            /* near-black: text, dark surfaces (LIVE card, filter pills) */
+  --green: #03bd6d;          /* brand green: primary accent, buttons, active states */
+  --green-dark: #028a50;     /* darker green: small text/links on white, active tab */
+  --blue: #0a3ceb;           /* secondary: channel tiles, "you are here" dot */
+  --cyan: #05c3f0;           /* accent: live score, streaming tile, cricket/F1 */
+  --cyan-dark: #0684a0;      /* cyan tag text */
+  --pink: #ef7fae;           /* FAVORED brand: rating badges, attribution */
+  --orange: #f18a00;         /* NFL, restaurant pins, late-night notices */
+  --orange-dark: #b56800;    /* orange tag text */
+
+  /* Text + lines */
+  --muted: rgba(0, 0, 0, .55);
+  --muted-2: rgba(0, 0, 0, .5);
+  --faint: rgba(0, 0, 0, .4);
+  --hairline: rgba(0, 0, 0, .08);
+  --border-input: rgba(0, 0, 0, .15);
+
+  /* Sport tag tints: rgba(color, .14) bg + dark shade text */
+  --tint-green: rgba(3, 189, 109, .14);
+  --tint-orange: rgba(241, 138, 0, .14);
+  --tint-pink: rgba(239, 127, 174, .14);
+  --tint-cyan: rgba(5, 195, 240, .14);
+  --tint-gray: rgba(0, 0, 0, .06);
+  --tint-favored: rgba(239, 127, 174, .09);   /* Favored quote card */
+  --tint-late: rgba(241, 138, 0, .1);         /* late-night notice */
+
+  /* Shape */
+  --r-card: 18px;      /* cards 16–20px */
+  --r-card-lg: 20px;
+  --r-card-sm: 14px;
+  --r-tile: 12px;
+  --r-tag: 6px;
+  --r-pill: 999px;
+
+  /* Type scale (mid-fi) */
+  --fs-title: 26px;        /* screen title, 900 */
+  --fs-h1: 30px;           /* onboarding H1, 800 */
+  --fs-section: 13px;      /* section labels, 800, .06em tracking, uppercase */
+  --fs-card-title: 16px;   /* card titles 15.5–17, 700–800 */
+  --fs-body: 14px;
+  --fs-meta: 12.5px;
+  --fs-meta-sm: 11.5px;
+
+  /* Layout */
+  --hit: 44px;             /* minimum hit target */
+  --pad-x: 22px;           /* screen horizontal padding */
+}
