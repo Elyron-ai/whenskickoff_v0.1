@@ -78,13 +78,6 @@
       if (history.length > 1) history.back(); else KO.nav("#/home");
       return;
     }
-    const tz = e.target.closest("[data-tz-cycle]");
-    if (tz) {
-      KO.state.tzIndex = KO.state.tzIndex + 1 >= KO.D.tzCycle.length ? -1 : KO.state.tzIndex + 1;
-      KO.save();
-      render();
-      return;
-    }
     const nav = e.target.closest("[data-nav]");
     if (nav) KO.nav(nav.dataset.nav);
   });

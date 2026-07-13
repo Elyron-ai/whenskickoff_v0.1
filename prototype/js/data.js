@@ -182,13 +182,13 @@
         { teamId: "f1", alerts: false, timing: "Kickoff", next: "British GP · Sun 15:00" }
       ]
     },
-    // Expat-hub timezone cycle for the header globe pill.
+    // Expat-hub timezones for the header dropdown (flag = country of the city).
     tzCycle: [
-      { label: "London", tz: "Europe/London" },
-      { label: "NYC", tz: "America/New_York" },
-      { label: "Dubai", tz: "Asia/Dubai" },
-      { label: "Singapore", tz: "Asia/Singapore" },
-      { label: "Sydney", tz: "Australia/Sydney" }
+      { label: "London", tz: "Europe/London", flag: "🇬🇧" },
+      { label: "NYC", tz: "America/New_York", flag: "🇺🇸" },
+      { label: "Dubai", tz: "Asia/Dubai", flag: "🇦🇪" },
+      { label: "Singapore", tz: "Asia/Singapore", flag: "🇸🇬" },
+      { label: "Sydney", tz: "Australia/Sydney", flag: "🇦🇺" }
     ]
   };
 })();
