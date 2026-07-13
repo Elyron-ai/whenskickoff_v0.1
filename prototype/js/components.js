@@ -19,6 +19,10 @@ window.KO = {
     const i = KO.state ? KO.state.tzIndex : -1;
     return i >= 0 ? KO.D.tzCycle[i].label : "Your time";
   },
+  activeTzFlag() {
+    const i = KO.state ? KO.state.tzIndex : -1;
+    return i >= 0 ? KO.D.tzCycle[i].flag : "🌐";
+  },
   fmtTime(utcMs) {
     return new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: KO.activeTz() }).format(new Date(utcMs));
   },

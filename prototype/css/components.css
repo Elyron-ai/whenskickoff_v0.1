@@ -301,3 +301,25 @@
   padding: 5px 10px; font-size: 11.5px; font-weight: 700; color: var(--muted);
   white-space: nowrap;
 }
+.tz-wrap { position: relative; }
+.tz-menu {
+  position: absolute; top: calc(100% + 6px); right: 0; z-index: 50;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card-sm);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+  padding: 6px;
+  min-width: 172px;
+}
+.tz-item {
+  display: flex; align-items: center; gap: 9px;
+  width: 100%; padding: 9px 12px;
+  border: none; background: none; font-family: inherit; cursor: pointer;
+  border-radius: 9px;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  text-align: left; white-space: nowrap;
+}
+.tz-item:hover { background: rgba(0, 0, 0, .05); }
+.tz-item.active { background: var(--tint-green); color: var(--green-dark); font-weight: 700; }
+.tz-item .flag { font-size: 15px; width: 20px; text-align: center; }
+.tz-item .check { margin-left: auto; font-weight: 800; }
