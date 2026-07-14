@@ -36,11 +36,10 @@ KO.screens.match = {
         </div>`;
 
     return `
-    <div class="nav-header">
-      <button class="back" data-back>←</button>
-      <span class="ctx" style="color:${KO.compTagColor(m.sport)}">${KO.D.sports[m.sport].emoji} ${KO.esc(m.comp).toUpperCase()}</span>
-      <span style="font-size:18px">↑</span>
-    </div>
+    ${KO.detailHeader({
+      center: `<span class="ctx" style="color:${KO.compTagColor(m.sport)}">${KO.D.sports[m.sport].emoji} ${KO.esc(m.comp).toUpperCase()}</span>`,
+      right: `<button class="icon-btn" aria-label="Share">↑</button>`
+    })}
     <div class="hero" style="margin:0 var(--pad-x)">
       ${heroTeams}
       ${live ? "" : `<button class="btn btn--white-pill" id="remind" style="margin-top:14px">${remindOn ? "✓ Reminder set · 15 min before" : "🔔 Remind me 15 min before"}</button>`}

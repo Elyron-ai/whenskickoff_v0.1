@@ -64,6 +64,30 @@ window.KO = {
       <div style="font-size:${size}px;font-weight:900;letter-spacing:-.5px;white-space:nowrap">when's<span style="color:var(--green)">kickoff</span></div>
     </div>`;
   },
+  avatar() {
+    return `<div class="avatar" title="You">${KO.esc(KO.D.user.initials)}</div>`;
+  },
+  /* Consistent header for the four top-level tab screens: KO? mark + title
+     on the left (Home uses the full wordmark), optional control + avatar right. */
+  appHeader(opts) {
+    opts = opts || {};
+    const brand = opts.wordmark
+      ? KO.wordmark(21)
+      : `<div class="row" style="gap:9px;min-width:0">${KO.logoBubble(28)}<div class="app-header__title">${KO.esc(opts.title)}</div></div>`;
+    return `<div class="app-header-row">
+      ${brand}
+      <div class="app-header__right">${opts.right || ""}${KO.avatar()}</div>
+    </div>`;
+  },
+  /* Consistent header for detail screens: back button, centred brand/context, right actions. */
+  detailHeader(opts) {
+    opts = opts || {};
+    return `<div class="detail-header">
+      <button class="icon-btn" data-back aria-label="Back">←</button>
+      <div class="detail-header__center">${opts.center || ""}</div>
+      <div class="detail-header__right">${opts.right || `<span class="icon-btn" aria-hidden="true"></span>`}</div>
+    </div>`;
+  },
 
   /* ---------- crests ---------- */
   crestFail(img) {

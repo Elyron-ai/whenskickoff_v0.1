@@ -12,11 +12,9 @@ KO.screens.nearby = {
       `<button class="pill ${f === id ? "pill--dark" : "pill--outline"}" data-nfilter="${id}">${label}</button>`;
 
     return `<div class="screen-pad">
-      <div class="row" style="justify-content:space-between;align-items:baseline">
-        <div class="screen-title">Nearby</div>
-        ${KO.favoredNote()}
-      </div>
+      ${KO.appHeader({ title: "Nearby" })}
       <div class="screen-sub">${KO.esc(KO.D.user.locationLabel)} · pubs, bars &amp; grub with the game on</div>
+      <div style="margin-top:3px">${KO.favoredNote()}</div>
       <div class="chip-row">
         ${chip("games", "Showing today's games")}${chip("food", "Food")}${chip("screen", "Big screen")}
       </div>

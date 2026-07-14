@@ -56,7 +56,8 @@ KO.screens.search = {
     const scope = KO.screens.search.scope;
     const chip = (id, label) => `<button class="pill ${scope === id ? "pill--dark" : "pill--outline"}" data-scope="${id}">${label}</button>`;
     return `<div class="screen-pad">
-      <div class="search-input">
+      ${KO.appHeader({ title: "Search" })}
+      <div class="search-input" style="margin-top:14px">
         <span>🔍</span>
         <input id="q" type="text" value="${KO.esc(KO.screens.search.query)}" placeholder="Team, match or competition" aria-label="Search">
         <span id="q-clear" style="color:rgba(0,0,0,.35);cursor:pointer">✕</span>

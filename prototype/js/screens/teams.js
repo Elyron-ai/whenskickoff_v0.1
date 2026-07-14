@@ -34,7 +34,7 @@ KO.screens.teams = {
     };
 
     return `<div class="screen-pad">
-      <div class="screen-title">My Teams</div>
+      ${KO.appHeader({ title: "My Teams" })}
       <div class="screen-sub">Your lot. We'll nudge you before every kickoff.</div>
     </div>
     <div class="stack" style="padding:18px var(--pad-x) 24px;gap:14px">

@@ -13,22 +13,18 @@ KO.screens.home = {
       return `<button class="pill ${active ? "pill--dark" : cls}" data-filter="${id}">${label}</button>`;
     };
 
-    return `<div class="screen-pad">
-      <div class="row" style="justify-content:space-between;gap:8px">
-        ${KO.wordmark(21)}
-        <div class="row" style="gap:7px;flex:none">
-          <div class="tz-wrap">
-            <button class="tz-pill" id="tz-pill" title="See kickoff times in another city — the expat view">${KO.activeTzFlag()} ${KO.esc(KO.activeTzLabel())} ▾</button>
-            <div class="tz-menu" id="tz-menu" hidden>
-              <button class="tz-item${KO.state.tzIndex === -1 ? " active" : ""}" data-tz-index="-1"><span class="flag">🌐</span>Your time${KO.state.tzIndex === -1 ? `<span class="check">✓</span>` : ""}</button>
-              ${KO.D.tzCycle.map((c, i) =>
-                `<button class="tz-item${KO.state.tzIndex === i ? " active" : ""}" data-tz-index="${i}"><span class="flag">${c.flag}</span>${c.label}${KO.state.tzIndex === i ? `<span class="check">✓</span>` : ""}</button>`
-              ).join("")}
-            </div>
-          </div>
-          <div style="width:32px;height:32px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none">${KO.D.user.initials}</div>
-        </div>
+    const tzWrap = `<div class="tz-wrap">
+      <button class="tz-pill" id="tz-pill" title="See kickoff times in another city — the expat view">${KO.activeTzFlag()} ${KO.esc(KO.activeTzLabel())} ▾</button>
+      <div class="tz-menu" id="tz-menu" hidden>
+        <button class="tz-item${KO.state.tzIndex === -1 ? " active" : ""}" data-tz-index="-1"><span class="flag">🌐</span>Your time${KO.state.tzIndex === -1 ? `<span class="check">✓</span>` : ""}</button>
+        ${KO.D.tzCycle.map((c, i) =>
+          `<button class="tz-item${KO.state.tzIndex === i ? " active" : ""}" data-tz-index="${i}"><span class="flag">${c.flag}</span>${c.label}${KO.state.tzIndex === i ? `<span class="check">✓</span>` : ""}</button>`
+        ).join("")}
       </div>
+    </div>`;
+
+    return `<div class="screen-pad">
+      ${KO.appHeader({ wordmark: true, right: tzWrap })}
       <div class="screen-sub">${KO.esc(KO.todayLine())} · ${count} kickoffs today</div>
       <div class="chip-row">
         ${filterChip("all", "All", "pill--outline")}
