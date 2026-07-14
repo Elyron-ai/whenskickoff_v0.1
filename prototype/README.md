@@ -1,6 +1,6 @@
 # WhensKickoff — clickable prototype
 
-A **zero-build, mid-fi clickable prototype** of the eight designed app screens. Its job is to make the proposition tangible for partners, pubs and early users — it is *not* production code (the production stack recommendation is in [docs/05](../docs/05-platform-architecture.md)).
+A **zero-build, mid-fi clickable prototype** of the designed app screens (14 in all). Its job is to make the proposition tangible for partners, pubs and early users — it is *not* production code (the production stack recommendation is in [docs/05](../docs/05-platform-architecture.md)).
 
 ## Run it
 
@@ -16,7 +16,10 @@ It also deploys unchanged to GitHub Pages (but read the crest note below first).
 
 ## What it demonstrates
 
-- All 8 screens with working navigation: Onboarding → Home → Match detail → Nearby → Venue detail → Map → Search → My Teams (tab bar, back buttons, card taps, deep links like `#/venue/fullback`).
+- **14 screens** with working navigation:
+  - *Core (1a–1h):* Onboarding · Home · Match detail · Nearby · Venue detail · Map · Search · My Teams.
+  - *Backlog (4a–4f):* Team page (`#/team/:id`) · Competition hub / tournament mode (`#/competition/:id`) · Notification centre (`#/alerts`) · Notification settings (`#/alerts/settings`) · Profile & settings (`#/profile`) · Sign in (`#/signin`).
+  - Wired through: team crests/names → team page, competition rows → hub, avatar → profile, My Teams 🔔 → alerts, alerts ⚙ → settings; tab bar, back buttons, card taps, deep links (e.g. `#/venue/fullback`).
 - **Timezone-native rendering**: kickoff times are stored as UTC instants, computed relative to load time (the demo never looks stale), and rendered in *your* timezone via `Intl.DateTimeFormat` — plus a city dropdown on Home (🌐 pill, country flag per city) that re-renders the whole app in 🇬🇧 London / 🇺🇸 NYC / 🇦🇪 Dubai / 🇸🇬 Singapore / 🇦🇺 Sydney time (the expat-hub pitch in one tap).
 - Live countdown on match detail; bell reminders and follow toggles that persist (localStorage); Favored-powered venue surfaces with "powered by Favored" attribution throughout.
 

@@ -20,21 +20,24 @@ KO.screens.teams = {
       const nudge = follow.teamId === "chiefs" ? `
         <div class="late-note" style="margin-top:12px">🦉 <b>Late one tonight.</b> Kickoff ${KO.fmtTime(KO.D.matches.find((m) => m.id === "kc-buf").kickoffUtc)} your time — ${KO.D.venues.filter((v) => v.lateLicence).length} pubs near you have a late licence. <span style="color:var(--green-dark);font-weight:700;cursor:pointer" data-nav="#/nearby">See them →</span></div>` : "";
 
+      const hasPage = !!KO.D.teamDetail[follow.teamId];
       return `<div class="card card--pad">
         <div class="row" style="gap:12px">
-          ${KO.crest(follow.teamId, 30, true)}
-          <div style="flex:1;min-width:0">
-            <div style="font-size:16px;font-weight:800">${KO.esc(t.name)}</div>
-            <div style="font-size:12px;color:var(--muted-2)">${s.emoji} ${t.sport === "f1" ? "" : KO.esc(s.name) + " · "}next: ${KO.esc(follow.next)}</div>
+          <div class="row" style="gap:12px;flex:1;min-width:0${hasPage ? ";cursor:pointer" : ""}"${hasPage ? ` data-nav="#/team/${follow.teamId}"` : ""}>
+            ${KO.crest(follow.teamId, 30, true)}
+            <div style="min-width:0">
+              <div style="font-size:16px;font-weight:800">${KO.esc(t.name)}</div>
+              <div style="font-size:12px;color:var(--muted-2)">${s.emoji} ${t.sport === "f1" ? "" : KO.esc(s.name) + " · "}next: ${KO.esc(follow.next)}</div>
+            </div>
           </div>
-          <button data-alerts="${follow.teamId}" style="border:none;font-family:inherit;cursor:pointer;border-radius:var(--r-pill);padding:5px 11px;font-size:11.5px;font-weight:800;${on ? "background:var(--tint-green);color:var(--green-dark)" : "background:var(--tint-gray);color:rgba(0,0,0,.45)"}">${on ? "🔔 ON" : "🔕 OFF"}</button>
+          <button data-alerts="${follow.teamId}" style="border:none;font-family:inherit;cursor:pointer;border-radius:var(--r-pill);padding:5px 11px;font-size:11.5px;font-weight:800;flex:none;${on ? "background:var(--tint-green);color:var(--green-dark)" : "background:var(--tint-gray);color:rgba(0,0,0,.45)"}">${on ? "🔔 ON" : "🔕 OFF"}</button>
         </div>
         ${timingChips}${nudge}
       </div>`;
     };
 
     return `<div class="screen-pad">
-      ${KO.appHeader({ title: "My Teams" })}
+      ${KO.appHeader({ title: "My Teams", right: `<button class="icon-btn" data-nav="#/alerts" aria-label="Alerts" style="font-size:19px">🔔</button>` })}
       <div class="screen-sub">Your lot. We'll nudge you before every kickoff.</div>
     </div>
     <div class="stack" style="padding:18px var(--pad-x) 24px;gap:14px">

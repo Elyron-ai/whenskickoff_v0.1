@@ -9,7 +9,7 @@ KO.screens.match = {
 
     const heroTeams = m.home
       ? `<div class="row" style="justify-content:space-between;align-items:center">
-          <div style="flex:1">
+          <div style="flex:1${KO.D.teamDetail[m.home] ? ";cursor:pointer" : ""}"${KO.D.teamDetail[m.home] ? ` data-nav="#/team/${m.home}"` : ""}>
             <div class="crest-circle">${KO.crest(m.home, 36)}</div>
             <div style="font-size:15px;font-weight:800;margin-top:6px;text-align:center">${KO.esc(KO.D.teams[m.home].name)}</div>
           </div>
@@ -21,7 +21,7 @@ KO.screens.match = {
                  <div style="font-size:12px;font-weight:700;opacity:.85">${KO.fmtDay(m.kickoffUtc)} · ${KO.esc(KO.activeTzLabel()).toUpperCase()}</div>
                  <div id="countdown" style="font-size:11.5px;opacity:.75;margin-top:2px">${KO.fmtCountdown(m.kickoffUtc)}</div>`}
           </div>
-          <div style="flex:1">
+          <div style="flex:1${KO.D.teamDetail[m.away] ? ";cursor:pointer" : ""}"${KO.D.teamDetail[m.away] ? ` data-nav="#/team/${m.away}"` : ""}>
             <div class="crest-circle">${KO.crest(m.away, 36)}</div>
             <div style="font-size:15px;font-weight:800;margin-top:6px;text-align:center">${KO.esc(KO.D.teams[m.away].name)}</div>
           </div>
