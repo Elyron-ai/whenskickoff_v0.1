@@ -4,7 +4,7 @@
 
 WhensKickoff (whenskickoff.com) tells fans when their teams play — in their timezone, across sports — and where to watch: the TV channel in their country, or a rated, bookable pub nearby showing the game (venue layer powered by sister product **[Favored](https://favored.ai)**).
 
-This repo is the **product proposition exploration** for evolving the World Cup 2026 site into a full iOS + Web product. It contains no production code.
+This repo is the **product proposition exploration** for evolving the World Cup 2026 site into a multi-sport product — **web first** (one simple Next.js app), with native iOS to follow as a separate track. It contains no production code.
 
 ## Contents
 
@@ -13,4 +13,4 @@ This repo is the **product proposition exploration** for evolving the World Cup 
 
 ## Status
 
-Exploration branch (`claude/whenskickoff-product-proposition-if921o`), July 2026. Design source: the "WhensKickoff Exploration" design canvas (8 iOS screens + the green "KO?" bubble brand).
+Exploration branch (`claude/whenskickoff-product-proposition-if921o`), July 2026. Design source: the "WhensKickoff Exploration" design canvas (8 app screens + the green "KO?" bubble brand).

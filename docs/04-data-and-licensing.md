@@ -89,10 +89,10 @@ flowchart LR
   CUR[Curated broadcast admin] --> ING
   ING --> NORM[(Normalized store<br/>Postgres: matches, teams,<br/>competitions, broadcasts)]
   FAV[Favored API<br/>venues + showings] -. queried live,<br/>cached briefly .-> API
-  NORM --> API[WhensKickoff API]
-  API --> IOS[SwiftUI iOS]
-  API --> WEB[Next.js web]
-  API --> NOTIF[Notification scheduler<br/>APNs + web push]
+  NORM --> API[WhensKickoff API<br/>Next.js route handlers]
+  API --> WEB[Next.js web app<br/>v1]
+  API -.later.-> IOS[SwiftUI iOS]
+  API --> NOTIF[Reminder scheduler<br/>.ics + web push · APNs later]
 ```
 
 Posture: fixtures sync on schedules (hourly; minutely near kickoff for live status), broadcast data is human-curated, venue data is **queried from Favored at request time** (their data, their freshness) with short-lived caching. Rate limits and provider outages are absorbed in the ingestion layer — clients only ever see the normalized store.

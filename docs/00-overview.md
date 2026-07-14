@@ -4,11 +4,11 @@
 
 ## What this is
 
-WhensKickoff ran through World Cup 2026 as a single-purpose site: *when is kickoff, in my timezone?* This pack explores turning it into a **multi-sport iOS + Web product** answering two questions — **"When's kickoff?"** (my teams, my timezone, every sport I follow) and **"Where can I watch it?"** (the TV channel in my country, and pubs/bars/restaurants nearby showing it, powered by sister product **Favored**). A [clickable prototype](../prototype/) of the designed experience accompanies the docs.
+WhensKickoff ran through World Cup 2026 as a single-purpose site: *when is kickoff, in my timezone?* This pack explores turning it into a **multi-sport product — web first, iOS to follow** — answering two questions — **"When's kickoff?"** (my teams, my timezone, every sport I follow) and **"Where can I watch it?"** (the TV channel in my country, and pubs/bars/restaurants nearby showing it, powered by sister product **Favored**). A [clickable prototype](../prototype/) of the designed experience accompanies the docs.
 
 ## Recommendation — TL;DR
 
-> **Build the fixtures-first utility as the spine (follow teams → today's kickoffs → reminders), ship the Favored venue layer inside it from v1 as the differentiator (London pilot), and run tournaments as repeating acquisition campaigns — not a separate product.** UK first, then expat hubs (NYC, Dubai, Singapore, Sydney). Native SwiftUI iOS for retention (push, Live Activities), Next.js web for acquisition (SEO match pages), one shared API. First revenue: streaming affiliates (v1) and Favored venue promotion/bookings (v1.5 pilot); premium tier once retention proves out. Next home-market flagship beat: **Euro 2028 (UK & Ireland)**.
+> **Build the fixtures-first utility as the spine (follow teams → today's kickoffs → reminders), ship the Favored venue layer inside it from v1 as the differentiator (London pilot), and run tournaments as repeating acquisition campaigns — not a separate product.** UK first, then expat hubs (NYC, Dubai, Singapore, Sydney). Ship **web only first** — one simple Next.js app (SEO-friendly match pages, one deployable) integrating the Favored API; **native iOS is a separate, later track** that reuses the same API. First revenue: streaming affiliates (v1) and Favored venue promotion/bookings (v1.5 pilot); premium tier once retention proves out. Next home-market flagship beat: **Euro 2028 (UK & Ireland)**.
 
 Full reasoning in [01 · Proposition options](01-proposition-options.md).
 
@@ -16,7 +16,7 @@ Full reasoning in [01 · Proposition options](01-proposition-options.md).
 
 1. **Deliverable of this exploration:** doc pack + clickable web prototype (this repo).
 2. **Market focus:** UK-first + expat hubs.
-3. **Recommended production stack:** SwiftUI iOS + Next.js web on a shared API (alternatives compared in [05](05-platform-architecture.md)).
+3. **Platform:** web only for v1 — one simple Next.js app; native iOS is a separate later track sharing the same API ([05](05-platform-architecture.md)).
 
 ## How to read this pack
 

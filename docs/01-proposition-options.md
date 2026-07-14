@@ -99,7 +99,7 @@ Concretely:
 - **Match detail and Nearby carry Option B surfaces from the start**, powered by Favored, scoped to where the data is real (London pilot). Where venue data is thin, the surfaces degrade gracefully (hide the pub count rather than show zeros).
 - **Option C is a playbook executed on the calendar**: Women's World Cup 2027 → England-hosted Ashes 2027 → **Euro 2028 (UK & Ireland) as the flagship home-market beat** → Women's Euros 2029 → World Cup 2030. Each event: themed onboarding, competition hub, share cards, venue promos.
 
-**Deliberately not in v1:** live-score depth (minute-by-minute commentary, lineups, xG — FotMob's turf), ticketing, fantasy/predictions, Android (follows once iOS+web proves retention), user-generated venue reviews (that's Favored's domain).
+**Deliberately not in v1:** live-score depth (minute-by-minute commentary, lineups, xG — FotMob's turf), ticketing, fantasy/predictions, native apps (v1 is web only; iOS is a separate later track — [05](05-platform-architecture.md), Android later still), user-generated venue reviews (that's Favored's domain).
 
 ## 7. Kill criteria & revisit signals
 
