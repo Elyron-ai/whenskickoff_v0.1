@@ -28,6 +28,7 @@ Full reasoning in [01 · Proposition options](01-proposition-options.md).
 | [04 · Data & licensing](04-data-and-licensing.md) | Fixtures provider strategy (stitched per-sport), curated TV listings, the Favored API surface + the "showing this" problem, crest IP |
 | [05 · Platform & architecture](05-platform-architecture.md) | Stack comparison, backend sketch, notification model, the timezone doctrine |
 | [06 · Roadmap](06-roadmap.md) | Phases v0→v2 + tournament playbook, metrics, risk register |
+| [07 · Screen inventory](07-screen-inventory.md) | What's designed / compressed / missing — a design backlog for iterating the screens |
 
 ## The prototype
 
