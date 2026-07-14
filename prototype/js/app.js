@@ -9,14 +9,23 @@
     follows: { chelsea: true, chiefs: true, f1: false },
     sportFilter: "all",
     nearbyFilter: "games",
-    onboardingSports: { football: true, nfl: true, rugby: true, f1: true }
+    onboardingSports: { football: true, nfl: true, rugby: true, f1: true },
+    signedIn: false,
+    units: "mi",
+    theme: "system",
+    alertsDefault: { "15 min before": true, "Kickoff": false, "Full-time score": true },
+    reach: { push: true, calendar: true, email: false },
+    quietHours: true,
+    nightOwlException: true
   };
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { /* fresh start */ }
   KO.state = Object.assign({}, defaults, saved,
     { bells: Object.assign({}, defaults.bells, saved.bells || {}),
       follows: Object.assign({}, defaults.follows, saved.follows || {}),
-      onboardingSports: Object.assign({}, defaults.onboardingSports, saved.onboardingSports || {}) });
+      onboardingSports: Object.assign({}, defaults.onboardingSports, saved.onboardingSports || {}),
+      alertsDefault: Object.assign({}, defaults.alertsDefault, saved.alertsDefault || {}),
+      reach: Object.assign({}, defaults.reach, saved.reach || {}) });
   KO.save = function () { try { localStorage.setItem(KEY, JSON.stringify(KO.state)); } catch (e) { /* private mode */ } };
 
   /* ---------- router ---------- */

@@ -65,7 +65,26 @@ window.KO = {
     </div>`;
   },
   avatar() {
-    return `<div class="avatar" title="You">${KO.esc(KO.D.user.initials)}</div>`;
+    return `<button class="avatar" data-nav="#/profile" aria-label="Profile & settings">${KO.esc(KO.D.user.initials)}</button>`;
+  },
+  /* Tinted rounded-square icon tile (settings/list rows) — turns 4d/4e pattern. */
+  iconTile(emoji, tint) {
+    const bg = {
+      green: "var(--tint-green)", cyan: "var(--tint-cyan)", pink: "var(--tint-pink)",
+      blue: "rgba(10,60,235,.1)", orange: "var(--tint-orange)",
+      ink: "var(--ink)", greenSolid: "var(--green)"
+    }[tint] || "var(--tint-gray)";
+    const light = tint === "ink" || tint === "greenSolid";
+    return `<span class="icon-tile" style="background:${bg}${light ? ";color:#fff" : ""}">${emoji}</span>`;
+  },
+  /* iOS-style toggle switch. */
+  toggle(on, attr) {
+    return `<span class="switch${on ? " on" : ""}" role="switch" aria-checked="${on ? "true" : "false"}"${attr || ""}><span class="knob"></span></span>`;
+  },
+  /* W / D / L form letter. */
+  formLetter(o) {
+    const c = { W: "var(--green-dark)", D: "var(--faint)", L: "var(--pink)" }[o] || "var(--faint)";
+    return `<span style="width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:900;color:#fff;background:${c}">${o}</span>`;
   },
   /* Consistent header for the four top-level tab screens: KO? mark + title
      on the left (Home uses the full wordmark), optional control + avatar right. */

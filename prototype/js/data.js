@@ -167,7 +167,79 @@
     { id: "ashes", name: "The Ashes 2027", meta: "England hosts · 5 Tests", emoji: "🏏", color: "var(--cyan)" }
   ];
 
+  // Time anchors for team/competition pages.
+  const day = 24 * 60 * min;
+  const nextSat = new Date(now);
+  nextSat.setDate(nextSat.getDate() + (((6 - nextSat.getDay()) + 7) % 7 || 7));
+  nextSat.setHours(15, 0, 0, 0);
+
+  // 4a Team page detail (keyed by team).
+  const TEAM_DETAIL = {
+    chelsea: {
+      compChip: { label: "⚽ EPL", tint: "green" },
+      position: "3rd in the Premier League",
+      form: ["W", "W", "D", "L", "W"],
+      next: { oppId: "spurs", home: true, kickoffUtc: nextSat.getTime(), channel: "Sky Sports Main Event", pubCount: 11 },
+      fixtures: [
+        { oppId: "spurs", home: true, kickoffUtc: nextSat.getTime(), channel: "Sky Sports Main Event" },
+        { oppId: "liverpool", home: false, kickoffUtc: nextSat.getTime() + 7 * day, channel: "TNT Sports 1" },
+        { oppId: "arsenal", home: true, kickoffUtc: nextSat.getTime() + 14 * day, channel: "Sky Sports" }
+      ],
+      results: [
+        { oppId: "mancity", home: false, score: [1, 1], outcome: "D" },
+        { oppId: "arsenal", home: true, score: [2, 1], outcome: "W" },
+        { oppId: "liverpool", home: true, score: [0, 2], outcome: "L" },
+        { oppId: "spurs", home: false, score: [3, 1], outcome: "W" }
+      ]
+    },
+    chiefs: {
+      compChip: { label: "🏈 NFL", tint: "orange" },
+      position: "1st in the AFC West",
+      form: ["W", "W", "W", "L", "W"],
+      next: { oppId: "bills", home: false, kickoffUtc: lateNight.getTime(), channel: "Sky Sports NFL", pubCount: 2, lateNight: true },
+      fixtures: [
+        { oppId: "bills", home: false, kickoffUtc: lateNight.getTime(), channel: "Sky Sports NFL" },
+        { oppId: "bills", home: true, kickoffUtc: lateNight.getTime() + 7 * day, channel: "Sky Sports NFL" }
+      ],
+      results: [
+        { oppId: "bills", home: true, score: [27, 24], outcome: "W" },
+        { oppId: "bills", home: false, score: [17, 20], outcome: "L" }
+      ]
+    }
+  };
+
+  // 4b Competition hub — tournament mode (keyed by competition).
+  const COMPETITION_DETAIL = {
+    wc2026: {
+      modeLabel: "🏆 TOURNAMENT MODE",
+      name: "World Cup 2026",
+      meta: "Final · Sunday 19 July · MetLife Stadium",
+      tabs: ["Fixtures", "Groups", "Knockouts", "Following"],
+      finalMatchId: "wc-final",
+      fixtures: [
+        { title: "Semi-final 1", a: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", b: "🇫🇷", kickoffUtc: finalDate.getTime() - 4 * day, channel: "BBC One" },
+        { title: "Semi-final 2", a: "🇧🇷", b: "🇦🇷", kickoffUtc: finalDate.getTime() - 3 * day, channel: "ITV1" }
+      ]
+    }
+  };
+
+  // 4c Notification centre.
+  const NOTIFICATIONS = {
+    today: [
+      { icon: "🔔", tint: "green", title: "Liverpool v Man City", meta: "Kicks off in 15 min · TNT Sports 1", matchId: "liv-mci", unread: true },
+      { icon: "🚩", tint: "cyan", title: "Full-time: Chelsea 2–1 Arsenal", meta: "Your team won · 2h ago", matchId: "che-ars", unread: true },
+      { icon: "🥂", tint: "pink", title: "3 pubs near you have England v India on", meta: "Cricket · from 18:00 · powered by Favored", matchId: "eng-ind", unread: false }
+    ],
+    queued: [
+      { icon: "🦉", tint: "orange", title: "Chiefs @ Bills", meta: "Reminder set · 15 min before · 01:20 your time", nightOwl: true },
+      { icon: "🔔", tint: "green", title: "World Cup Final", meta: "Reminder set · Sunday 20:00 your time" }
+    ]
+  };
+
   window.KO_DATA = {
+    teamDetail: TEAM_DETAIL,
+    competitionDetail: COMPETITION_DETAIL,
+    notifications: NOTIFICATIONS,
     sports: SPORTS,
     teams: TEAMS,
     matches: MATCHES,
@@ -175,7 +247,11 @@
     competitions: COMPETITIONS,
     user: {
       initials: "JT",
+      name: "James Taylor",
+      email: "james@whenskickoff.com",
       locationLabel: "Shoreditch, London",
+      homeTz: "London (BST)",
+      country: "United Kingdom",
       follows: [
         { teamId: "chelsea", alerts: true, timing: "15 min before", next: "Sat 15:00 vs Spurs" },
         { teamId: "chiefs", alerts: true, timing: "15 min before", next: "tonight 01:20 @ Bills" },

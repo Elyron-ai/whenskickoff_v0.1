@@ -24,7 +24,7 @@ KO.screens.search = {
       ? KO.D.competitions.filter((c) => !q || c.name.toLowerCase().includes(q) || q.split(" ").some((w) => w.length > 2 && c.name.toLowerCase().includes(w)))
       : [];
     const compRows = comps.map((c) => `
-      <div class="row" style="gap:12px;min-height:44px;cursor:pointer" data-nav="#/match/wc-final">
+      <div class="row" style="gap:12px;min-height:44px;cursor:pointer" data-nav="#/competition/${c.id}">
         <div style="width:38px;height:38px;border-radius:11px;background:${c.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none">${c.emoji}</div>
         <div style="flex:1;min-width:0">
           <div style="font-size:15px;font-weight:700">${KO.esc(c.name)}</div>
@@ -37,7 +37,7 @@ KO.screens.search = {
       ? Object.entries(KO.D.teams).filter(([, t]) => q && t.name.toLowerCase().includes(q)).slice(0, 3)
       : [];
     const teamRows = teams.map(([id, t]) => `
-      <div class="row" style="gap:12px;min-height:44px">
+      <div class="row" style="gap:12px;min-height:44px${KO.D.teamDetail[id] ? ";cursor:pointer" : ""}"${KO.D.teamDetail[id] ? ` data-nav="#/team/${id}"` : ""}>
         ${KO.crest(id, 26, true)}
         <div style="flex:1;font-size:15px;font-weight:700">${KO.esc(t.name)}</div>
         <span style="font-size:13px;font-weight:700;color:${KO.state.follows[id] ? "var(--green-dark)" : "var(--faint)"}">${KO.state.follows[id] ? "Following ✓" : "+ Follow"}</span>

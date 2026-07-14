@@ -19,7 +19,9 @@ Recently unified so the brand carries screen-to-screen — keep this when iterat
 
 ---
 
-## 1. Built ✅ (8 screens in the prototype)
+## 1. Built ✅ (14 screens in the prototype)
+
+**Core (1a–1h):**
 
 | Screen | Route | Purpose | Key elements |
 |---|---|---|---|
@@ -33,6 +35,17 @@ Recently unified so the brand carries screen-to-screen — keep this when iterat
 | **Search** | `#/search` | Find teams, comps, global kickoffs | Query + scope chips, hero result card (World Cup Final), competition rows, popular chips |
 | **My Teams** | `#/teams` | Your follows + alert settings | Followed rows, per-team alert-timing chips, late-night nudge, "+ Follow another" |
 
+**Backlog, now built (4a–4f):**
+
+| Screen | Route | Purpose | Key elements |
+|---|---|---|---|
+| **Team page** | `#/team/:id` | A followed team's page | Gradient identity band (crest, position, W/D/L form, Follow), NEXT UP hero, fixtures list, recent-results tiles, alerts summary |
+| **Competition hub** | `#/competition/:id` | Tournament mode | Dark header (TOURNAMENT MODE, tab chips), Final hero with flag circles, fixture rows, add-all-to-calendar promo |
+| **Notification centre** | `#/alerts` | Fired + queued alerts | Icon-tile rows, unread wash + dots, "Today" / "Queued up" (dashed) sections, night-owl tile |
+| **Notification settings** | `#/alerts/settings` | Alert defaults & delivery | Default-alert chips, "how we reach you" toggle rows (push / calendar / email), quiet hours + night-owl exception |
+| **Profile & settings** | `#/profile` | Account & preferences | Identity row, Time & place rows (timezone, country, mi/km), App rows (notifications, theme, KO Pro), sign-in/out |
+| **Sign in** | `#/signin` | Cross-device sync (skippable) | Green glow, KO? bubble, Apple / Google / email, skip link, Favored footnote |
+
 ## 2. Compressed / partial 🟡
 
 | Item | Today | Needs |
@@ -40,7 +53,9 @@ Recently unified so the brand carries screen-to-screen — keep this when iterat
 | **Onboarding flow** | One screen does everything; a 3-step progress bar is shown but not real | Break into real steps (see §3) with forward/back and skip |
 | **My Teams (team manager)** | Follows list; alert-timing chips shown on one card only | Reordering, alert timing on every follow, per-competition options, unfollow |
 | **Search states** | Works for the happy path | Loading, empty ("no results"), recent searches |
-| **Reminders** | Per-fixture bells + per-team chips only | A place to see/manage everything you've set (see Notifications, §3) |
+
+### Recently built (were in this backlog)
+Team page, Competition hub / tournament mode, Notification centre + settings, Profile & settings, and Sign in have all been designed (canvas turn 4) and built into the prototype — see §1. The remaining backlog below is what's still open.
 
 ## 3. Missing ⬜ (design backlog)
 
@@ -53,24 +68,15 @@ The single screen should become a short flow. Suggested steps:
 5. **Location priming** — why we ask (local channels + nearby pubs), with a skip.
 6. **Done / first-run** — drop into Home with a subtle "here's today" cue.
 
-### Notifications
-- ⬜ **Notification centre / inbox** — a list of fired and upcoming alerts ("Liverpool v Man City kicks off in 15 min", "Full-time: Chelsea 2–1 Arsenal"), tappable through to the match.
-- ⬜ **Notification settings** — global defaults for the alert types (15-min / kickoff / full-time), quiet hours, the late-night night-owl behaviour, channel (push / calendar / email).
-
-### Team & competition
-- ⬜ **Team page** — a followed team's fixtures, recent results, next match, "where to watch" shortcuts, follow/unfollow + alert settings. (Tapping a team currently dead-ends.)
-- ⬜ **Competition hub** — a competition's fixtures, table/standings, rounds. Doubles as the **tournament-mode** surface (World Cup / Euros / Ashes): themed header, full schedule localized, share cards. (Search rows currently deep-link to a match, not a comp.)
-
-### Account & settings
-- ⬜ **Profile / Settings** — the avatar's destination: home timezone & country-for-TV, units (mi/km), theme, manage subscription, sign out. (Avatar is currently decorative.)
-- ⬜ **Sign in / create account** — needed for follows and reminders to persist across devices (email / Apple / Google).
+### Competition hub — deeper tabs
+The hub's **Groups / Knockouts / Following** tabs are placeholders — design the bracket, group tables, and a following view.
 
 ### Schedule & discovery
 - ⬜ **Full schedule / calendar** — Home is "today" only; add a week view / date picker / by-competition browse.
 - ⬜ **"All pubs showing this"** — the full list behind the match-detail carousel and "See all N pubs" (currently routes to Nearby).
 
 ### Commerce
-- ⬜ **Premium / upgrade** — the "KO Pro" screen (calendar sync, unlimited alerts, multi-timezone) referenced in [03 · Monetization](03-monetization.md).
+- ⬜ **Premium / upgrade** — the "KO Pro" screen (calendar sync, unlimited alerts, multi-timezone) referenced in [03 · Monetization](03-monetization.md). (An entry point exists on Profile; the screen itself is still to design.)
 
 ### System & edge states (cross-cutting)
 - ⬜ **Empty states** — no follows yet, no games today, no pubs nearby, no search results.
@@ -78,12 +84,11 @@ The single screen should become a short flow. Suggested steps:
 
 ## 4. Suggested design priority
 
-1. **Team page + Competition hub** — light up the taps that currently dead-end, and unlock tournament mode.
-2. **Onboarding flow** (real steps) — first impression + the follows/permissions that everything depends on.
-3. **Notification centre + settings** — the retention loop is the product; it needs a home.
-4. **Profile / Settings + Sign-in** — give the avatar a destination; enable cross-device.
-5. **Empty/loading/error states** across the built screens.
-6. **Full schedule/calendar**, **All-pubs list**, **Premium** — round out.
+1. **Onboarding flow** (real steps) — first impression + the follows/permissions that everything depends on.
+2. **Empty/loading/error states** across the built screens — the biggest gap now the core + backlog screens exist.
+3. **Competition hub deeper tabs** (groups, knockouts, following) — flesh out tournament mode.
+4. **Premium / KO Pro** screen — the entry point exists; design the upgrade surface.
+5. **Full schedule/calendar** and **All-pubs list** — round out discovery.
 
 ---
 *Part of the [WhensKickoff proposition pack](00-overview.md).*
