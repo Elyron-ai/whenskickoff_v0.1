@@ -20,10 +20,10 @@ KO.screens.venue = {
     }).join("");
 
     return `
-    <div class="nav-header">
-      <button class="back" data-back>←</button>
-      <span style="font-size:18px">♡ &nbsp; ↑</span>
-    </div>
+    ${KO.detailHeader({
+      center: KO.logoBubble(24),
+      right: `<button class="icon-btn" aria-label="Save">♡</button><button class="icon-btn" aria-label="Share">↑</button>`
+    })}
     <div style="margin:0 var(--pad-x)">
       <div class="photo photo--img" style="height:160px;border-radius:var(--r-card-lg);background-image:${v.photo};position:relative">
         <span class="rating-badge" style="left:auto;right:12px;top:12px;font-size:14px;padding:6px 12px">${v.rating}</span>

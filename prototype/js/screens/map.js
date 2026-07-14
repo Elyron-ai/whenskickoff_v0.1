@@ -20,11 +20,10 @@ KO.screens.map = {
     const note = s ? s.note.toLowerCase() : "quiet tonight";
 
     return `
-    <div class="nav-header">
-      <button class="back" data-back>←</button>
-      <div class="pill pill--dark">Showing: ⚽ LIV v MCI · ${KO.fmtTime(target.kickoffUtc)}</div>
-      <span style="font-size:18px">⚙</span>
-    </div>
+    ${KO.detailHeader({
+      center: `<div class="pill pill--dark" style="font-size:12.5px">Showing: ⚽ LIV v MCI · ${KO.fmtTime(target.kickoffUtc)}</div>`,
+      right: `<button class="icon-btn" aria-label="Settings">⚙</button>`
+    })}
     <div class="map-canvas">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(0,0,0,.3);font:11px ui-monospace,Menlo,monospace">map tiles — placeholder</div>
       ${pins}
