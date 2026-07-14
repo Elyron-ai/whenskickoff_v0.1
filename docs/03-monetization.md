@@ -5,7 +5,7 @@
 ### R1 — Venue promotion & booking referrals (via Favored)
 - **Mechanics:** venues pay for placement ("featured" in Nearby/map for a fixture), big-match promotion slots, and/or per-booking referral fees on **Book table**. Commercially this likely runs *through Favored* (venues are Favored's customers) with a revenue share to WhensKickoff for demand generation.
 - **Realistic value:** venue marketing budgets for match days are real (Fanzo's whole business); £50–300/venue/month for promotion, £1–3 per covered seat on bookings are plausible anchors. At pilot scale (50–100 London venues) this is thousands/month — proof, not profit.
-- **Prerequisites:** venue data with trustworthy "showing this" declarations; Favored inter-company terms agreed; enough fan traffic to matter to a landlord.
+- **Prerequisites:** the Favored API's "showing this" data kept fresh (a consumption rule — [04 §4](04-data-and-licensing.md#favored)); Favored commercial terms agreed; enough fan traffic to matter to a landlord.
 
 ### R2 — Streaming & broadcast affiliates
 - **Mechanics:** channel rows on Match detail ("Open ↗") deep-link to NOW, DAZN, Discovery+, Prime, etc. with affiliate/partner tags; earn on trial starts and sign-ups.
@@ -41,7 +41,7 @@
 
 ## 4. Risks
 
-- **Favored inter-company terms are undefined** — who owns the venue relationship, who bills, what's the split on referrals? Needs a one-page agreement before the pilot (see open questions in [00 · Overview](00-overview.md)).
+- **Favored commercial terms need agreeing** — the API is a given, but who owns the venue relationship, who bills, and what's the split on referrals? Needs a one-page agreement before the pilot (see open questions in [00 · Overview](00-overview.md)).
 - **Affiliate attribution leakage** — app-to-app deep links often lose tags (Sky/Now apps especially); measure with promo codes where links fail.
 - **App Store commission** compresses R3 margins on iOS; mitigate with web subscription checkout.
 - **Sponsorship vs. trust** — one bad gambling-adjacent placement can poison the "mate who knows" tone; the no-gambling stance should be policy, not preference.

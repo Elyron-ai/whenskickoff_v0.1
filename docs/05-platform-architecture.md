@@ -2,74 +2,83 @@
 
 ## 1. Recommendation (locked)
 
-> **Native SwiftUI iOS app + Next.js web app, sharing one backend API.**
+> **One simple web app, built with Next.js (React, TypeScript, App Router). iOS is a separate, later track that reuses the same API — not built now.**
 
-Two codebases is the expensive option and it's still the right one here, because the two platforms are doing different jobs: **iOS is the retention product** (push, widgets, Live Activities), **web is the acquisition product** (SEO, shareable links, zero-install tournament traffic).
+The decision is to ship **web only** first and keep it as simple as possible: a single Next.js application that both renders the pages *and* serves the API (via route handlers), backed by Postgres. No native app, no second codebase, no separate backend service to stand up on day one. When the web product has proven its retention, iOS is picked up as its own project against the API this app already exposes.
 
-## 2. Alternatives compared
+## 2. Why web-first, and why Next.js
 
-| | **SwiftUI + Next.js** (chosen) | Expo / React Native (+ web) | Web-first PWA |
-|---|---|---|---|
-| Native feel & polish | ★★★ | ★★ good-not-perfect | ★ |
-| Push notifications | APNs first-class | fine via Expo | web push only; iOS PWA push exists but users must A2HS first — deadly for the *core loop* |
-| **Widgets / Live Activities** | ✔ full | partial, native modules needed | ✘ |
-| Web SEO | ★★★ (Next.js SSR) | ★ (react-native-web SEO is painful) | ★★★ |
-| Dev cost (small team) | highest | lowest for both platforms | lowest overall |
-| Hiring/maintainability | two skill sets | one | one |
-| Android later | new codebase | nearly free | free-ish |
+**Why web first**
+- **Fastest path to launch** — no App Store review, no native toolchain, no device provisioning. Push a URL and you're live.
+- **Acquisition is a web job anyway.** "chelsea vs arsenal what channel" long-tail searches are exactly our match pages; a crawlable, server-rendered site is the whole acquisition channel, and every match/venue page doubles as a shareable link ("where are we watching? → link").
+- **Reaches everyone immediately** — desktop, Android, and iOS all open a web app; the native app is an *enhancement* for the iOS retention loop, not a prerequisite to being usable.
 
-**Why the extra cost is justified — two product-led reasons:**
+**Why Next.js specifically** (the most appropriate choice for *this* app)
+- **SSR/SSG for SEO** out of the box — one URL per match/venue/competition, server-rendered and fast. This is the single biggest reason to pick it over a plain SPA.
+- **One deployable, minimum moving parts.** App Router pages + a handful of API route handlers = frontend and backend in one repo, one deploy (Vercel or any Node host). That is genuinely the *"really simple"* setup — you don't run a separate API service until scale demands it.
+- **A clean API seam for later.** The route handlers become the public API the iOS app consumes verbatim; nothing is thrown away when native work starts.
+- **Design tokens carry over** — the prototype's [`tokens.css`](../prototype/css/tokens.css) becomes the web app's CSS variables / Tailwind theme directly.
 
-1. **The kickoff countdown belongs in the Dynamic Island.** A Live Activity showing "LIV v MCI — kicks off in 12m" (then the live score) is not a nicety; it's the single most on-proposition thing an iOS app can do, and it's SwiftUI-native territory. Same for a home-screen widget of today's kickoffs. The bell is the product; iOS is where the bell lives.
-2. **"chelsea vs arsenal what channel" is an acquisition channel.** Those long-tail queries are exactly our match-detail page. That demands a crawlable, fast, server-rendered web app with one URL per match — Next.js's home turf and react-native-web's weakness. Web pages double as the share targets ("Where are we watching? → link").
+**Why not the alternatives, now**
+- **Plain React SPA (Vite):** simpler build, but no server rendering → the SEO acquisition channel evaporates. Wrong trade for a product whose growth story is search.
+- **Astro / static site:** superb SEO and simplicity, but the app is genuinely interactive (follows, filters, reminders, live countdown) — Next.js handles both content and app-like state; Astro would fight the app half.
+- **React Native / Expo:** only pays off when you want iOS + web from one codebase *now*. You've explicitly deferred iOS, so cross-platform machinery is complexity you don't need yet.
+- **Native iOS now:** the most retention-optimal long-term, but slower and heavier than the goal here — deferred to its own track by choice.
 
-**When Expo would win instead** (honest note): if the team is 1–2 engineers total and Android is wanted within a year, Expo's one-codebase economics beat both arguments above. Revisit if team shape changes.
+## 3. How iOS slots in later (separately)
 
-**PWA-only** was rejected because the retention loop depends on reliable push and lock-screen presence; iOS web push requires add-to-home-screen first, which kills the funnel for mainstream users.
+The API boundary is the seam. When iOS is picked up:
+- It's a **native SwiftUI client** (recommended for the retention features below) — or Expo if a shared codebase becomes attractive at that point — consuming the exact endpoints this web app already serves.
+- It's where the **retention-signature features** live that the web can't match: **Live Activities / Dynamic Island** ("LIV v MCI — kicks off in 12m", then the live score) and a home-screen widget of today's kickoffs. The bell is the product; iOS is eventually where the bell is loudest. Notifications there use **APNs**.
+- Nothing about the web build blocks this: the data model, timezone doctrine, and API are shared. iOS is additive.
 
-## 3. Backend sketch
+Android stays further out still — considered only after iOS.
 
-Lightweight and boring on purpose: **TypeScript API (Fastify/Nest on Node) + Postgres**, fixture-ingestion workers (per-provider adapters per [04](04-data-and-licensing.md)), a notification scheduler, and a tiny admin for curated broadcast data.
+## 4. Backend sketch (kept deliberately small)
 
 ```mermaid
 flowchart TD
-  subgraph clients
-    IOS[SwiftUI iOS]
-    WEB[Next.js web<br/>SSR match pages]
+  subgraph nextapp[Next.js app · one deployable]
+    PAGES[App Router pages<br/>SSR/SSG match, venue,<br/>competition, home]
+    API[Route handlers<br/>= the public API]
   end
-  API[TypeScript API<br/>OpenAPI schema] --> PG[(Postgres)]
-  IOS --> API
-  WEB --> API
-  WRK[Ingestion workers] --> PG
-  ADM[Broadcast curation admin] --> PG
-  SCHED[Notification scheduler] --> PG
-  SCHED --> APNS[APNs]
-  SCHED --> WP[Web Push VAPID]
-  API -. live venue queries .-> FAV[Favored API]
+  PAGES --> API
+  API --> PG[(Postgres)]
+  WRK[Fixture ingestion<br/>scheduled jobs] --> PG
+  ADM[Broadcast curation<br/>admin screen] --> PG
+  API -. live venue queries .-> FAV[Favored API<br/>venues + showings]
+  SCHED[Reminder scheduler] --> WP[Web Push · VAPID]
+  SCHED -. iOS track, later .-> APNS[APNs]
+  API -.later.-> IOS[SwiftUI iOS client]
 ```
 
-- **One OpenAPI schema** is the contract; Swift and TypeScript clients are generated from it, which keeps the two-codebase tax down.
-- **Design tokens as shared source of truth:** the prototype's [`prototype/css/tokens.css`](../prototype/css/tokens.css) is the seed — promote it to a tokens JSON consumed by both the web CSS and a generated Swift `Theme` file.
+- **Venues come from the Favored API** (see [04 §4](04-data-and-licensing.md#favored)) — queried at request time and briefly cached; the app integrates Favored, it doesn't store venue data.
+- **Fixtures** are ingested on a schedule into Postgres ([04 §2](04-data-and-licensing.md)); **broadcast rows** are curated via a small admin screen ([04 §3](04-data-and-licensing.md)).
+- Start with everything in the one Next.js app; split the ingestion workers or API into their own service only if/when load makes it necessary.
 
-## 4. Notifications
+## 5. Notifications (web-first)
 
-- **Model:** reminders are *kickoff-relative*, not absolute — stored as `(fixtureId, offset)` per the design's chips (15 min before / kickoff / full-time). The scheduler materializes send-times from `kickoffUtc` and **re-materializes when a fixture moves** (postponements, TV-picks rescheduling — constant in football). This re-scheduling behaviour is a genuine differentiator over calendar entries.
-- **Channels:** APNs (iOS) and VAPID web push (web). Full-time alerts need the live-status feed; 15-min/kickoff alerts only need schedules — which conveniently matches the cheap-data v1.
-- **Quiet hours & the night-owl class:** late-night fixtures (kickoff 00:00–06:00 local) get the special treatment from the designs — an *evening-before* nudge ("🦉 Late one tonight… 2 pubs near you have a late licence") instead of a 01:05 buzz, unless the user opts into wake-me-up mode.
+- **Reminders are kickoff-relative** — stored as `(fixtureId, offset)` (15 min before / kickoff / full-time), materialized from `kickoffUtc` and **re-materialized when a fixture moves** (postponements, TV reschedules — routine in football).
+- **Two delivery mechanisms, simplest-first:**
+  1. **Add-to-calendar (.ics)** — a universal, zero-infrastructure reminder that works on *every* device including iOS Safari, where web push is restricted. This is the robust v1 default.
+  2. **Web push (VAPID)** — richer, for desktop and Android browsers (and iOS only once installed as a PWA). An enhancement layered on top, not the foundation.
+- **APNs** arrives with the iOS track, when lock-screen reminders and the late-night night-owl nudge become first-class.
 
-## 5. Timezone doctrine (founding competence)
+## 6. Timezone doctrine (founding competence)
 
 The company exists because timezones are fumbled everywhere else. Doctrine:
 
 1. **Store UTC only.** `kickoffUtc` is the single source of truth; no local times in the database, ever.
-2. **Render in the viewer's IANA zone** (`Europe/London`, not "GMT+1") at display time — `Intl.DateTimeFormat` on web, `TimeZone.current`/`Date.FormatStyle` on iOS. Never precompute local times server-side; server-rendered web pages localize client-side (or per-request from a zone hint) to keep cached pages zone-agnostic.
-3. **DST edges are product moments, not bugs:** a fixture that's 20:00 for you this week and 19:00 next week (clocks changed in one country but not the other) should be *explained* ("clocks went back in the UK"), because that's exactly the confusion the product monetizes.
-4. **Relative framing everywhere:** "Kicks off in 3h 12m", "TODAY · YOUR TIME", and honest day boundaries — a Saturday 21:00 ET match is *Sunday 02:00* for London and the UI must say Sunday.
-5. **Dual-zone sets** (premium, [03](03-monetization.md)): "my time + home time" for expats.
+2. **Render in the viewer's IANA zone** (`Europe/London`, not "GMT+1") at display time — `Intl.DateTimeFormat` in the browser. Server-rendered pages stay zone-agnostic (localize client-side, or per-request from a zone hint) so cached HTML is reusable across zones.
+3. **DST edges are product moments, not bugs** — a fixture that's 20:00 for you this week and 19:00 next (clocks changed in one country, not the other) should be *explained*, because that confusion is exactly what the product monetizes.
+4. **Relative framing everywhere** — "Kicks off in 3h 12m", "TODAY · YOUR TIME", honest day boundaries (a Saturday 21:00 ET match is *Sunday 02:00* in London and the UI must say Sunday).
+5. **Dual-zone sets** (premium, [03](03-monetization.md)) — "my time + home time" for expats.
 
-## 6. What the prototype does and doesn't validate
+The prototype already implements this doctrine live (it computes every kickoff against the viewer's clock), so it's proven in the design, not just asserted.
 
-The [clickable prototype](../prototype/) in this repo demonstrates the *experience* — flows, tone, the Favored integration surfaces, timezone-relative rendering (it genuinely computes times against the viewer's clock) — and is the design-token seed. It validates **nothing** about: data feasibility (mock data), notification delivery, venue data accuracy, or performance. Treat it as an argument, not an artifact of the product.
+## 7. What the prototype does and doesn't validate
+
+The [clickable prototype](../prototype/) demonstrates the *experience* — flows, tone, the Favored integration surfaces, timezone-relative rendering — and seeds the design tokens. It validates **nothing** about data feasibility (mock data), reminder delivery, venue-data accuracy, or performance. Treat it as an argument, not an artifact of the product.
 
 ---
 *Previous: [04 · Data & licensing](04-data-and-licensing.md) · Next: [06 · Roadmap](06-roadmap.md)*

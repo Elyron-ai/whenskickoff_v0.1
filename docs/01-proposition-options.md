@@ -40,14 +40,14 @@ A second framing distinction: a **utility** wins by being opened reflexively (re
 |---|---|
 | **Target user** | Fans who watch *out*: groups, big-match occasions, expats without the right subscriptions |
 | **MVP surface** | Nearby, Venue detail, Map, plus a thin fixture layer to filter by |
-| **Data cost** | High and *operational*: per-fixture "showing this" data doesn't exist for free anywhere |
-| **Moat** | Strong if supply is won: venue relationships + quality/editorial layer are defensible |
+| **Data cost** | Supplied by the Favored API — the per-fixture "showing this" data isn't obtainable elsewhere, so Favored providing it is the moat, not a build cost |
+| **Moat** | Strong: Favored's venue relationships + quality/editorial layer are the defensible asset, and WhensKickoff has privileged access to them |
 | **Revenue path** | Day-one plausible: venue promotion, booking referrals, big-match sponsorship |
-| **What kills it** | Supply cold-start. Empty or wrong "showing this" data destroys trust in one bad Saturday |
+| **What kills it** | Stale/inaccurate "showing this" data, or thin Favored coverage in a new city, destroying trust in one bad Saturday |
 
-**Strengths.** Genuinely differentiated; monetizable early; perfect sister-product synergy (Favored brings ratings, reviews, photos, booking — WhensKickoff brings the *reason to go out tonight*). The pink-badged venue surfaces in the designs are the most distinctive screens in the app.
+**Strengths.** Genuinely differentiated; monetizable early; perfect sister-product synergy — Favored provides ratings, reviews, photos, booking *and* the per-fixture "showing this" data via its API, while WhensKickoff brings the *reason to go out tonight*. The pink-badged venue surfaces in the designs are the most distinctive screens in the app.
 
-**Weaknesses.** Fanzo (ex-MatchPint) has spent a decade on exactly this in the UK and owns pub-side tooling; the "who declares what a pub is showing" problem (see [04 · Data](04-data-and-licensing.md#favored)) is the single biggest dependency; realistically launches London-first, not nationwide.
+**Weaknesses.** Fanzo (ex-MatchPint) has spent a decade on exactly this in the UK; the dependency now is Favored's **coverage depth per city** (see [04 · Data](04-data-and-licensing.md#favored)) rather than whether the data exists — so it realistically launches London-first, where Favored is deepest, not nationwide.
 
 ## 4. Option C — Tournament-mode event companion
 
@@ -99,7 +99,7 @@ Concretely:
 - **Match detail and Nearby carry Option B surfaces from the start**, powered by Favored, scoped to where the data is real (London pilot). Where venue data is thin, the surfaces degrade gracefully (hide the pub count rather than show zeros).
 - **Option C is a playbook executed on the calendar**: Women's World Cup 2027 → England-hosted Ashes 2027 → **Euro 2028 (UK & Ireland) as the flagship home-market beat** → Women's Euros 2029 → World Cup 2030. Each event: themed onboarding, competition hub, share cards, venue promos.
 
-**Deliberately not in v1:** live-score depth (minute-by-minute commentary, lineups, xG — FotMob's turf), ticketing, fantasy/predictions, Android (follows once iOS+web proves retention), user-generated venue reviews (that's Favored's domain).
+**Deliberately not in v1:** live-score depth (minute-by-minute commentary, lineups, xG — FotMob's turf), ticketing, fantasy/predictions, native apps (v1 is web only; iOS is a separate later track — [05](05-platform-architecture.md), Android later still), user-generated venue reviews (that's Favored's domain).
 
 ## 7. Kill criteria & revisit signals
 
@@ -107,7 +107,7 @@ Set these now so the layers get re-weighted by evidence, not attachment:
 
 - **Reminder opt-in < ~25%** of activated users → the alert loop isn't the spine we think; revisit whether C-plus-SEO is the real business.
 - **Venue-surface tap-through < ~10%** on match detail in the London pilot → B is ahead of its audience; park the venue layer, double down on A.
-- **Venue "showing this" accuracy complaints** in pilot feedback → stop expanding venues until the declaration workflow (see [04](04-data-and-licensing.md)) is fixed; wrong data is worse than no data.
+- **Venue "showing this" accuracy complaints** in pilot feedback → stop expanding venues until data freshness/coverage from Favored (see [04](04-data-and-licensing.md)) is fixed; wrong data is worse than no data.
 - **Tournament spike converts < ~5%** to followed-team users → C traffic is tourists; treat tournaments as sponsorship revenue events, not acquisition.
 
 ---
