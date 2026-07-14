@@ -35,8 +35,8 @@ Open [`prototype/index.html`](../prototype/index.html) in any browser (no build,
 
 ## Open questions for the founder
 
-1. **Who declares what a pub is showing?** The biggest dependency in the product. Favored venue-side flow, a WhensKickoff venue portal, or concierge-for-the-pilot? ([04 §4](04-data-and-licensing.md#favored))
-2. **Favored API & commercial terms** — required surface is assumed, not confirmed; referral split and venue-relationship ownership need a one-pager.
+1. **Favored commercial terms** — the Favored API (venues, ratings, editorial, booking, and per-fixture "showing this" declarations) is assumed as a provided dependency ([04 §4](04-data-and-licensing.md#favored)); what still needs a one-pager is the *business* side — referral split and venue-relationship ownership.
+2. **Favored venue coverage per city** — how deep is Favored's data in London at pilot, and in NYC / Dubai / Singapore / Sydney for v2? Coverage depth paces the B-layer rollout, not API availability.
 3. **Data budget** — comfortable with ~low hundreds £/month for stitched v1 providers, and the engineering cost of reconciliation?
 4. **Brand stretch** — happy to keep "kickoff" across cricket/F1? (Recommendation: yes — [02 §4](02-users-and-market.md).)
 5. **WC2026 audience** — the final is this Sunday; is there an email/notification capture on the live site today to carry that audience into v1?

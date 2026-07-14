@@ -50,27 +50,26 @@ Automate later (Gracenote licence or broadcaster partnerships) once the curation
 
 ## 4. Venues — the Favored API <a id="favored"></a>
 
-Venue data comes from Favored (favored.ai). **Hard rule carried over from the designs: every venue surface renders "powered by Favored"** (pink `#ef7fae` wordmark) — list cards, venue detail, map bottom-cards, match-detail carousels.
+Venue data is **provided by the Favored API** (favored.ai) — this pack assumes Favored exposes the surface WhensKickoff consumes; the app integrates it rather than sourcing venue data itself. **Hard rule carried over from the designs: every venue surface renders "powered by Favored"** (pink `#ef7fae` wordmark) — list cards, venue detail, map bottom-cards, match-detail carousels.
 
-**Required API surface (assumed, needs confirming with the Favored team):**
+**API surface consumed (provided by Favored):**
 
-| Capability | Used by | Exists today? |
-|---|---|---|
-| Geo search (lat/lng + radius, type filter pub/bar/restaurant) | Nearby, Map | presumably |
-| Rating + review count | badges everywhere | presumably |
-| Photos | cards, venue hero | presumably |
-| "Favored says" editorial quote | venue detail quote card | presumably |
-| Amenities (screens count, garden, food hours, dogs, late licence) | venue detail, filters, night-owl nudge | partial? |
-| Booking deep-link / referral tracking | Book table | presumably |
-| **Per-venue, per-fixture "showing this" declarations** (+ room/sound notes: "Main bar + garden · sound on") | *the entire B layer* | **almost certainly not** |
+| Capability | Used by |
+|---|---|
+| Geo search (lat/lng + radius, type filter pub/bar/restaurant) | Nearby, Map |
+| Rating + review count | badges everywhere |
+| Photos | cards, venue hero |
+| "Favored says" editorial quote | venue detail quote card |
+| Amenities (screens count, garden, food hours, dogs, late licence) | venue detail, filters, night-owl nudge |
+| Booking deep-link / referral tracking | Book table |
+| **Per-venue, per-fixture "showing this" declarations** (+ room/sound notes: "Main bar + garden · sound on") | *the entire B layer* |
 
-**The biggest single dependency in the whole product is that last row.** "Which pub is showing which match" is not scrapeable and not in any public dataset; Fanzo solved it with a decade of venue-side tooling where landlords declare their screenings. The options:
+**That last row — "which pub is showing which match" — is the data that makes the B layer possible, and Favored supplies it.** It isn't scrapeable or in any public dataset (Fanzo built a decade of venue-side tooling to collect it); Favored owns the venue relationship and the declaration flow that feeds this field, so WhensKickoff's job is to **consume it well**, not to collect it.
 
-1. **Favored builds a declaration flow** into its venue dashboard ("Which of this week's fixtures are you showing? Which room? Sound on?") — cleanest ownership, since venues are Favored's relationship.
-2. **WhensKickoff builds a lightweight venue portal** (magic-link, tick the fixtures) and writes back through the API — faster to start, messier long-term.
-3. **Manual concierge for the pilot** — someone phones/messages 50 London venues weekly. Unsexy, correct for proving demand before building tooling.
+Two consumption-side rules the app owns regardless:
 
-Recommendation: **start with 3 for the pilot, commit to 1 as the scaling path.** Decide before v1.5 scoping. And a product rule regardless of path: **stale beats wrong** — a declaration older than the fixture week gets demoted to "usually shows football" phrasing rather than asserting "showing this".
+1. **Stale beats wrong.** A declaration older than the fixture week is demoted to "usually shows football" phrasing rather than asserting "showing this" — wrong data destroys trust faster than missing data.
+2. **Degrade gracefully on thin coverage.** Where Favored's coverage is sparse (early in a new city), hide the pub count rather than show zeros — venue *coverage depth per city* is the rollout dependency, and it paces the B-layer expansion in [06 · Roadmap](06-roadmap.md).
 
 ## 5. Crests, logos & IP
 
